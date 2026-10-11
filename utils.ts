@@ -44,7 +44,25 @@ export const setAuthSession = (data: AuthSession): void => {
 
 export const getAuthSession = (): AuthSession | null => {
     const data = localStorage.getItem(KEY_AUTH);
-    return data ? JSON.parse(data) : null;
+    if (!data) return null;
+
+    try {
+        const session: unknown = JSON.parse(data);
+
+        if (typeof session !== 'object' || session === null) return null;
+        if (!('token' in session) || typeof session.token !== 'string') return null;
+        if (!('role' in session) || typeof session.role !== 'string') return null;
+        if (!('firstName' in session) || typeof session.firstName !== 'string') return null;
+
+        return {
+            token: session.token,
+            role: session.role,
+            firstName: session.firstName
+        };
+    } catch (error) {
+        if (error instanceof SyntaxError) return null;
+        throw error;
+    }
 };
 
 export const logout = (): void => {
@@ -55,15 +73,9 @@ export const logout = (): void => {
 // Fungsi Auth Guard untuk proteksi dashboard admin & moderator
 export const checkAuth = (): void => {
     const session = getAuthSession();
-    
-    // Redirect paksa jika sesi login atau token tidak tersedia
-    if (!session?.token) {
-        window.location.href = 'login.html';
-        return;
-    }
 
     // Hanya admin dan moderator yang boleh membuka dashboard
-    if (session.role !== 'admin' && session.role !== 'moderator') {
+    if (!session?.token || !['admin', 'moderator'].includes(session.role)) {
         window.location.href = 'login.html';
     }
 };
