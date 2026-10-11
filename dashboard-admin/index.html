@@ -33,13 +33,13 @@
 
 
     <div class="parent-container">
-    <div class="container1">
+    <div class="container1" id="containerJenisAntrian">
 
         <h3>Jenis antrian</h3>
 
         <form class="input-1">  
             
-            <div class="kode">
+            <div class="kode" id="inputKode">
             <p>Kode</p>
             <input type="text" placeholder="C">
             </div>
@@ -89,19 +89,19 @@
         <div class="antrian">
 
         <p>Jenis antrian</p>
-        <select class="jenis-antrian">
+        <select class="jenis-antrian" id="selectJenisTerbit">
             <option>Pilih Jenis Antrian</option>
 
         </select>
         </div>
 
-        <div class="prioritas-form">
+        <div class="prioritas-form" id="selectPrioritas">
         <p>Prioritas</p>
         <select class="prioritas">
             <option value="Normal">Normal</option>
 
         </select>
-        <button type="button">Terbitkan</button>
+        <button type="button" id="btnTerbitkan">Terbitkan</button>
         </div>
 
         </div>
@@ -136,6 +136,6 @@
 
     </div>
     
-    <script scrc="code.js"></script>
+    <script type="module" scrc="code.js"></script>
 </body>
 </html>
