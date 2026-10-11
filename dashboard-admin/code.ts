@@ -1,136 +1,263 @@
-// 1. Import fungsi dari utils.js (INGAT: pakai akhiran .js saat import)
-import { 
-    checkAuth, 
+import {
     getAuthSession,
     logout,
-    getSemuaJenisAntrian, 
-    simpanJenisAntrian, 
-    JenisAntrian,
+    getSemuaJenisAntrian,
+    simpanJenisAntrian,
     getSemuaTiket,
     simpanTiket,
-    Tiket,
-    formatNomorTiket,
-    Prioritas
+    formatNomorTiket
 } from '../utils.js';
-
-// 2. Auth Guard: Redirect ke login jika sesi tidak valid atau role tidak diizinkan
-checkAuth();
+import type { JenisAntrian, Tiket, Prioritas } from '../utils.js';
 
 const authSession = getAuthSession();
 const userNameDisplay = document.getElementById('userNameDisplay');
 const userRoleDisplay = document.getElementById('userRoleDisplay');
-const btnLogout = document.getElementById('btnLogout');
+const profileButton = document.getElementById('profileButton') as HTMLButtonElement | null;
+const userPanel = document.getElementById('user-panel');
+const btnLogout = document.getElementById('btnLogout') as HTMLButtonElement | null;
+const inputKode = document.getElementById('inputKodeValue') as HTMLInputElement | null;
+const inputNama = document.getElementById('inputNamaValue') as HTMLInputElement | null;
+const btnTambah = document.getElementById('btnTambah') as HTMLButtonElement | null;
+const listJenisAntrian = document.getElementById('listJenisAntrian');
+const selectJenisTerbit = document.getElementById('selectJenisTerbit') as HTMLSelectElement | null;
+const selectPrioritas = document.querySelector<HTMLSelectElement>('#selectPrioritas select');
+const btnTerbitkan = document.getElementById('btnTerbitkan') as HTMLButtonElement | null;
+const btnResetAntrian = document.getElementById('btnResetAntrian') as HTMLButtonElement | null;
+const listTiketAntrian = document.getElementById('listTiketAntrian');
+const daftarPrioritas: Prioritas[] = ['Normal', 'Lansia', 'Disabilitas', 'VIP'];
 
 if (authSession) {
     if (userNameDisplay) userNameDisplay.textContent = authSession.firstName;
     if (userRoleDisplay) userRoleDisplay.textContent = authSession.role;
+} else {
+    if (userNameDisplay) userNameDisplay.textContent = 'Pengguna';
+    if (userRoleDisplay) userRoleDisplay.textContent = 'Akses sementara';
 }
+
+const closeUserPanel = (): void => {
+    if (!userPanel || !profileButton) return;
+    userPanel.hidden = true;
+    profileButton.setAttribute('aria-expanded', 'false');
+};
+
+profileButton?.addEventListener('click', () => {
+    if (!userPanel) return;
+    const isOpening = userPanel.hidden;
+    userPanel.hidden = !isOpening;
+    profileButton.setAttribute('aria-expanded', String(isOpening));
+});
 
 btnLogout?.addEventListener('click', logout);
 
-const inputKode = document.getElementById('inputKode');
-const inputNama = document.getElementById('inputNama');
-const btnTambah = document.getElementById('btnTambah');
-const containerJenisAntrian = document.getElementById('containerJenisAntrian');
+document.addEventListener('click', (event: MouseEvent) => {
+    if (!(event.target instanceof Node)) return;
+    if (userPanel?.contains(event.target) || profileButton?.contains(event.target)) return;
+    closeUserPanel();
+});
 
-const selectJenisTerbit = document.getElementById('selectJenisTerbit');
-const selectPrioritas = document.getElementById('selectPrioritas');
-const btnTerbitkan = document.getElementById('btnTerbitkan');
+document.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key === 'Escape') closeUserPanel();
+});
 
-// ==========================================
-// LOGIKA 1: RENDER & TAMBAH JENIS ANTRIAN
-// ==========================================
-
-// Fungsi untuk me-refresh tampilan daftar jenis antrian & opsi dropdown
-const renderJenisAntrian = () => {
+const renderJenisAntrian = (): void => {
     const dataJenis = getSemuaJenisAntrian();
-    
-    // Kosongkan container sebelum diisi ulang
-    if (containerJenisAntrian) containerJenisAntrian.innerHTML = '';
-    if (selectJenisTerbit) selectJenisTerbit.innerHTML = '<option value="">Pilih Jenis Antrian</option>';
+    const semuaTiket = getSemuaTiket();
 
-    dataJenis.forEach((jenis: JenisAntrian) => {
-        // Render ke daftar UI sebelah kiri
-        if (containerJenisAntrian) {
-            const div = document.createElement('div');
-            // Menambahkan class CSS (opsional, sesuaikan dengan mystyle.css)
-            div.className = 'flex justify-between items-center border-b p-2'; 
-            div.innerHTML = `
-                <div>
-                    <span class="font-bold">${jenis.nama} (${jenis.kode})</span>
-                    <p class="text-sm">Status: ${jenis.aktif ? 'Aktif' : 'Nonaktif'}</p>
-                </div>
-                <div>
-                    <button class="btn-toggle text-sm mr-2" data-kode="${jenis.kode}">
-                        ${jenis.aktif ? 'Nonaktifkan' : 'Aktifkan'}
-                    </button>
-                    <button class="btn-hapus text-sm text-red-500" data-kode="${jenis.kode}">Hapus</button>
-                </div>
-            `;
-            containerJenisAntrian.appendChild(div);
+    if (listJenisAntrian) {
+        listJenisAntrian.replaceChildren();
+
+        if (dataJenis.length === 0) {
+            const emptyState = document.createElement('li');
+            emptyState.textContent = 'Belum ada jenis antrian.';
+            listJenisAntrian.appendChild(emptyState);
         }
 
-        // Tambahkan ke dropdown "Terbitkan Tiket" jika statusnya aktif
-        if (jenis.aktif && selectJenisTerbit) {
-            const option = document.createElement('option');
-            option.value = jenis.kode;
-            option.textContent = `${jenis.nama} (${jenis.kode})`;
-            selectJenisTerbit.appendChild(option);
+        dataJenis.forEach((jenis) => {
+            const item = document.createElement('li');
+            const info = document.createElement('div');
+            info.className = 'info-antrian';
+
+            const name = document.createElement('strong');
+            name.textContent = `${jenis.nama} (${jenis.kode})`;
+            const status = document.createElement('span');
+            status.textContent = `Status: ${jenis.aktif ? 'Aktif' : 'Nonaktif'}`;
+            const waiting = document.createElement('span');
+            const jumlahMenunggu = semuaTiket.filter(
+                (tiket) => tiket.kodeAntrian === jenis.kode && tiket.status === 'Menunggu'
+            ).length;
+            waiting.textContent = `${jumlahMenunggu} Menunggu`;
+
+            info.append(name, status, waiting);
+
+            const actions = document.createElement('div');
+            actions.className = 'list-left';
+
+            const toggleButton = document.createElement('button');
+            toggleButton.type = 'button';
+            toggleButton.dataset.action = 'toggle';
+            toggleButton.dataset.kode = jenis.kode;
+            toggleButton.textContent = jenis.aktif ? 'Nonaktifkan' : 'Aktifkan';
+
+            const deleteButton = document.createElement('button');
+            deleteButton.type = 'button';
+            deleteButton.dataset.action = 'delete';
+            deleteButton.dataset.kode = jenis.kode;
+            deleteButton.textContent = 'Hapus';
+
+            actions.append(toggleButton, deleteButton);
+            item.append(info, actions);
+            listJenisAntrian.appendChild(item);
+        });
+    }
+
+    if (selectJenisTerbit) {
+        const selectedKode = selectJenisTerbit.value;
+        selectJenisTerbit.replaceChildren(new Option('Pilih Jenis Antrian', ''));
+
+        dataJenis.filter((jenis) => jenis.aktif).forEach((jenis) => {
+            selectJenisTerbit.add(new Option(`${jenis.nama} (${jenis.kode})`, jenis.kode));
+        });
+
+        if (dataJenis.some((jenis) => jenis.aktif && jenis.kode === selectedKode)) {
+            selectJenisTerbit.value = selectedKode;
         }
+    }
+};
+
+const renderTiket = (): void => {
+    if (!listTiketAntrian) return;
+
+    listTiketAntrian.replaceChildren();
+    const semuaJenis = getSemuaJenisAntrian();
+    const semuaTiket = getSemuaTiket();
+
+    if (semuaTiket.length === 0) {
+        const emptyState = document.createElement('p');
+        emptyState.textContent = 'Belum ada tiket dalam antrian.';
+        listTiketAntrian.appendChild(emptyState);
+        return;
+    }
+
+    semuaJenis.forEach((jenis) => {
+        const tiketJenis = semuaTiket.filter((tiket) => tiket.kodeAntrian === jenis.kode);
+        if (tiketJenis.length === 0) return;
+
+        const group = document.createElement('section');
+        group.className = 'ticket-group';
+        const heading = document.createElement('h4');
+        heading.textContent = `${jenis.nama} (${jenis.kode})`;
+        const list = document.createElement('ul');
+        list.className = 'list-jenis';
+
+        tiketJenis.forEach((tiket) => {
+            const item = document.createElement('li');
+            const id = document.createElement('strong');
+            id.textContent = tiket.id;
+            const priority = document.createElement('span');
+            priority.textContent = tiket.prioritas;
+            const ticketStatus = document.createElement('span');
+            ticketStatus.textContent = tiket.status;
+            item.append(id, priority, ticketStatus);
+            list.appendChild(item);
+        });
+
+        group.append(heading, list);
+        listTiketAntrian.appendChild(group);
     });
 };
 
-// Event Listener untuk tombol "Tambah"
+const renderDashboard = (): void => {
+    renderJenisAntrian();
+    renderTiket();
+};
+
 btnTambah?.addEventListener('click', () => {
+    if (!inputKode || !inputNama) {
+        alert('Input kode/nama tidak ditemukan!');
+        return;
+    }
+
     const kode = inputKode.value.trim().toUpperCase();
     const nama = inputNama.value.trim();
 
-    // Validasi input
-    if (kode.length !== 1 || !/^[A-Z]$/.test(kode)) {
+    if (!/^[A-Z]$/.test(kode)) {
         alert('Kode harus berupa 1 huruf kapital!');
         return;
     }
     if (!nama) {
-        alert('Nama antrian tidak boleh kosong!');
+        alert('Nama layanan tidak boleh kosong!');
         return;
     }
 
     const dataJenis = getSemuaJenisAntrian();
-    
-    // Cek duplikasi (case-insensitive)
-    const isDuplicate = dataJenis.some(j => j.kode === kode || j.nama.toLowerCase() === nama.toLowerCase());
+    const isDuplicate = dataJenis.some(
+        (jenis) => jenis.kode.toUpperCase() === kode || jenis.nama.trim().toLocaleLowerCase() === nama.toLocaleLowerCase()
+    );
     if (isDuplicate) {
-        alert('Kode atau Nama jenis antrian sudah digunakan!');
+        alert('Kode atau nama layanan sudah digunakan!');
         return;
     }
 
-    // Simpan data baru
-    const jenisBaru: JenisAntrian = { kode, nama, aktif: true };
-    dataJenis.push(jenisBaru);
+    dataJenis.push({ kode, nama, aktif: true });
     simpanJenisAntrian(dataJenis);
-
-    // Reset form & render ulang
     inputKode.value = '';
     inputNama.value = '';
-    renderJenisAntrian();
+    renderDashboard();
 });
 
-// ==========================================
-// LOGIKA 2: TERBITKAN TIKET MANUAL
-// ==========================================
+listJenisAntrian?.addEventListener('click', (event: MouseEvent) => {
+    if (!(event.target instanceof Element)) return;
 
-btnTerbitkan?.addEventListener('click', () => {
-    const kodeDipilih = selectJenisTerbit.value;
-    const prioritasDipilih = selectPrioritas.value as Prioritas;
+    const button = event.target.closest<HTMLButtonElement>('button[data-action][data-kode]');
+    const kode = button?.dataset.kode;
+    const action = button?.dataset.action;
+    if (!button || !kode || (action !== 'toggle' && action !== 'delete')) return;
 
-    if (!kodeDipilih) {
-        alert('Silakan pilih jenis antrian terlebih dahulu!');
+    const dataJenis = getSemuaJenisAntrian();
+    const jenis = dataJenis.find((item) => item.kode === kode);
+    if (!jenis) {
+        alert('Jenis antrian tidak ditemukan. Muat ulang halaman dan coba lagi.');
         return;
     }
 
-    // Buat id tiket baru (misal: C-001)
-    const idTiketBaru = formatNomorTiket(kodeDipilih);
+    if (action === 'toggle') {
+        jenis.aktif = !jenis.aktif;
+        simpanJenisAntrian(dataJenis);
+        renderDashboard();
+        return;
+    }
 
+    if (!confirm(`Hapus jenis antrian ${jenis.nama} (${jenis.kode}) beserta semua tiketnya?`)) return;
+
+    simpanJenisAntrian(dataJenis.filter((item) => item.kode !== kode));
+    simpanTiket(getSemuaTiket().filter((tiket) => tiket.kodeAntrian !== kode));
+    renderDashboard();
+});
+
+btnTerbitkan?.addEventListener('click', () => {
+    if (!selectJenisTerbit || !selectPrioritas) {
+        alert('Elemen form terbit tiket tidak ditemukan!');
+        return;
+    }
+
+    const kodeDipilih = selectJenisTerbit.value;
+    const jenisAktif = getSemuaJenisAntrian().some(
+        (jenis) => jenis.kode === kodeDipilih && jenis.aktif
+    );
+    if (!kodeDipilih || !jenisAktif) {
+        alert('Silakan pilih jenis antrian yang masih aktif!');
+        renderJenisAntrian();
+        return;
+    }
+
+    const prioritasDipilih = daftarPrioritas.find((prioritas) => prioritas === selectPrioritas.value);
+    if (!prioritasDipilih) {
+            alert('Silakan pilih prioritas tiket yang valid!');
+        return;
+    }
+
+    const idTiketBaru = formatNomorTiket(kodeDipilih);
+    const semuaTiket = getSemuaTiket();
     const tiketBaru: Tiket = {
         id: idTiketBaru,
         kodeAntrian: kodeDipilih,
@@ -139,16 +266,18 @@ btnTerbitkan?.addEventListener('click', () => {
         timestamp: Date.now()
     };
 
-    // Ambil tiket lama, tambahkan yang baru, simpan lagi
-    const semuaTiket = getSemuaTiket();
     semuaTiket.push(tiketBaru);
     simpanTiket(semuaTiket);
-
+    renderDashboard();
     alert(`Tiket berhasil diterbitkan: ${idTiketBaru}`);
-    // Nanti disini kamu bisa panggil fungsi renderTiket() buat nampilin list di bawahnya
 });
 
-// ==========================================
-// INISIALISASI SAAT HALAMAN DIMUAT
-// ==========================================
-renderJenisAntrian();
+btnResetAntrian?.addEventListener('click', () => {
+    if (!confirm('Reset seluruh antrian? Semua tiket akan dihapus dan nomor kembali ke awal.')) return;
+
+    simpanTiket([]);
+    renderDashboard();
+    alert('Antrian berhasil direset. Nomor tiket kembali ke awal.');
+});
+
+renderDashboard();

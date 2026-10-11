@@ -67,7 +67,7 @@ export const getAuthSession = (): AuthSession | null => {
 
 export const logout = (): void => {
     localStorage.removeItem(KEY_AUTH);
-    window.location.href = 'login.html';
+    window.location.reload();
 };
 
 // Fungsi Auth Guard untuk proteksi dashboard admin & moderator
@@ -109,15 +109,16 @@ export const simpanTiket = (data: Tiket[]): void => {
 // Menghasilkan nomor tiket dengan format Kode-Nomor 3 Digit (contoh: A-001)
 export const formatNomorTiket = (kode: string): string => {
     const semuaTiket = getSemuaTiket();
-    
-    // Hitung berapa banyak tiket yang sudah ada untuk kode tersebut
-    const totalTiketDiKodeIni = semuaTiket.filter(t => t.kodeAntrian === kode).length;
-    
-    // Nomor berikutnya adalah total + 1
-    const nomorBerikutnya = totalTiketDiKodeIni + 1;
-    
-    // Format menjadi 3 digit (padStart)
+
+    const nomorTerakhir = semuaTiket.reduce((tertinggi, tiket) => {
+        if (tiket.kodeAntrian !== kode) return tertinggi;
+
+        const nomor = Number(tiket.id.slice(kode.length + 1));
+        return Number.isInteger(nomor) ? Math.max(tertinggi, nomor) : tertinggi;
+    }, 0);
+
+    const nomorBerikutnya = nomorTerakhir + 1;
     const nomorFormat = nomorBerikutnya.toString().padStart(3, '0');
-    
+
     return `${kode}-${nomorFormat}`;
 };

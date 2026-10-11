@@ -22,14 +22,23 @@
     </div>
 
     <div class="navbar-right">
-    <i class="ri-search-line"></i>
-    <i class="ri-notification-2-line"></i>
+
     <div class="navbar-user">
-        <i class="ri-user-line"></i>
+
+        <button type="button" id="btnResetAntrian" class="reset-antrian">Reset Antrian</button>
+
+        <button type="button" id="profileButton" class="profile-button" aria-label="Buka panel profil" aria-controls="user-panel" aria-expanded="false">
+            <i class="ri-user-line" aria-hidden="true"></i>
+        </button>
+
+        <div class="user-panel-hidden" id="user-panel" hidden>
         <span id="userNameDisplay"></span>
         <span id="userRoleDisplay"></span>
+        <button type="button" id="btnLogout">Logout</button>
+        </div>
+
     </div>
-    <button type="button" id="btnLogout">Logout</button>
+
     </div>
 
     </div>
@@ -43,45 +52,20 @@
         <h3>Jenis antrian</h3>
 
         <form class="input-1">  
-            
             <div class="kode" id="inputKode">
-            <p>Kode</p>
-            <input type="text" placeholder="C">
+                <label for="inputKodeValue">Kode</label>
+                <input id="inputKodeValue" type="text" placeholder="C">
             </div>
 
-            <div class="nama-jenis">
-            <p>Nama</p>
-            <input type="text" placeholder="Contoh: Farmasi">
-
-            <button type="button">Tambah</button>
+            <div class="nama-jenis" id="inputNama">
+                <label for="inputNamaValue">Nama layanan</label>
+                <input id="inputNamaValue" type="text" placeholder="Contoh: Farmasi">
             </div>
 
+            <button type="button" id="btnTambah">Tambah</button>
         </form>
 
-        <ul class="list-antrian">
-            <li>
-                
-            <div class="info-antrian">
-                <div class="list-right">
-                UMUM-1
-                <p>(A)</p>
-                </div>
-
-                <div class="status-menunggu">
-                0 Menunggu
-                </div>
-            </div>
-
-                <div class="list-left">
-                <button type="button">Nonaktifkan</button>
-                <button type="button">Hapus</button>
-                </div>
-
-              
-            </li>
-           
-
-        </ul>
+        <ul class="list-antrian" id="listJenisAntrian"></ul>
 
     </div>
 
@@ -104,35 +88,23 @@
         <p>Prioritas</p>
         <select class="prioritas">
             <option value="Normal">Normal</option>
+            <option value="Lansia">Lansia</option>
+            <option value="Disabilitas">Disabilitas</option>
+            <option value="VIP">VIP</option>
 
         </select>
-        <button type="button" id="btnTerbitkan">Terbitkan</button>
+        
         </div>
+
+         <button type="button" id="btnTerbitkan">Terbitkan</button>
 
         </div>
 
         <div class="list-container">
-
-            <ul class="list-jenis">
-
-
-                <p>UMUM-1</p>
-                <li>
-                    
-                    <div class="list-jenis-left">
-                    A-001
-                
-                    <button type="button">Normal</button>
-                    <button type="button">Dipanggil</button>
-                    </div>
-
-                    <div class="list-jenis-right">
-                        <p>Selesai</p>
-                    </div>
-
-                </li>
-            </ul>
-
+            <div class="queue-list-heading">
+                <h3>Antrian tiket</h3>
+            </div>
+            <div id="listTiketAntrian" class="ticket-groups"></div>
         </div>
 
         </div>
