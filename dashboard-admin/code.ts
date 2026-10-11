@@ -1,6 +1,8 @@
 // 1. Import fungsi dari utils.js (INGAT: pakai akhiran .js saat import)
 import { 
     checkAuth, 
+    getAuthSession,
+    logout,
     getSemuaJenisAntrian, 
     simpanJenisAntrian, 
     JenisAntrian,
@@ -11,8 +13,20 @@ import {
     Prioritas
 } from '../utils.js';
 
-// 2. Auth Guard: Lemparkan user ke login kalau bukan admin/moderator
-checkAuth(['admin', 'moderator']);
+// 2. Auth Guard: Redirect ke login jika sesi tidak valid atau role tidak diizinkan
+checkAuth();
+
+const authSession = getAuthSession();
+const userNameDisplay = document.getElementById('userNameDisplay');
+const userRoleDisplay = document.getElementById('userRoleDisplay');
+const btnLogout = document.getElementById('btnLogout');
+
+if (authSession) {
+    if (userNameDisplay) userNameDisplay.textContent = authSession.firstName;
+    if (userRoleDisplay) userRoleDisplay.textContent = authSession.role;
+}
+
+btnLogout?.addEventListener('click', logout);
 
 const inputKode = document.getElementById('inputKode');
 const inputNama = document.getElementById('inputNama');

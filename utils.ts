@@ -52,29 +52,19 @@ export const logout = (): void => {
     window.location.href = 'login.html';
 };
 
-// Fungsi Auth Guard untuk proteksi dashboard admin & operator
-export const checkAuth = (allowedRoles: string[]): void => {
+// Fungsi Auth Guard untuk proteksi dashboard admin & moderator
+export const checkAuth = (): void => {
     const session = getAuthSession();
     
-    // Redirect paksa jika belum login
-    if (!session) {
+    // Redirect paksa jika sesi login atau token tidak tersedia
+    if (!session?.token) {
         window.location.href = 'login.html';
         return;
     }
 
-    // Perlakuan hak akses moderator disamakan dengan admin
-    let userRole = session.role;
-    if (userRole === 'moderator') {
-        userRole = 'admin';
-    }
-
-    // Jika role tidak sesuai, lemparkan ke halaman yang benar
-    if (!allowedRoles.includes(userRole)) {
-        if (userRole === 'admin') {
-            window.location.href = 'index.html';
-        } else {
-            window.location.href = 'ambil-antrian.html';
-        }
+    // Hanya admin dan moderator yang boleh membuka dashboard
+    if (session.role !== 'admin' && session.role !== 'moderator') {
+        window.location.href = 'login.html';
     }
 };
 
