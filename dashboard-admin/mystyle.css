@@ -227,7 +227,8 @@ body {
 }
 
 .ticket-group .list-jenis li {
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: max-content minmax(10ch, 1fr) max-content;
     gap: 24px;
 }
 
