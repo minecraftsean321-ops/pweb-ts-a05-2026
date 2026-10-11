@@ -6,6 +6,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="mystyle.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
 
@@ -26,9 +31,52 @@
 
     <div class="container-utama">
 
+
+    <div class="parent-container">
     <div class="container1">
 
         <h3>Jenis antrian</h3>
+
+        <form class="input-1">  
+            
+            <div class="kode">
+            <p>Kode</p>
+            <input type="text" placeholder="C">
+            </div>
+
+            <div class="nama-jenis">
+            <p>Nama</p>
+            <input type="text" placeholder="Contoh: Farmasi">
+
+            <button type="button">Tambah</button>
+            </div>
+
+        </form>
+
+        <ul class="list-antrian">
+            <li>
+                
+            <div class="info-antrian">
+                <div class="list-right">
+                UMUM-1
+                <p>(A)</p>
+                </div>
+
+                <div class="status-menunggu">
+                0 Menunggu
+                </div>
+            </div>
+
+                <div class="list-left">
+                <button type="button">Nonaktifkan</button>
+                <button type="button">Hapus</button>
+                </div>
+
+              
+            </li>
+           
+
+        </ul>
 
     </div>
 
@@ -36,9 +84,58 @@
 
         <h3>Terbitkan tiket</h3>
 
+        <div class="input-2">
+
+        <div class="antrian">
+
+        <p>Jenis antrian</p>
+        <select class="jenis-antrian">
+            <option>Pilih Jenis Antrian</option>
+
+        </select>
+        </div>
+
+        <div class="prioritas-form">
+        <p>Prioritas</p>
+        <select class="prioritas">
+            <option value="Normal">Normal</option>
+
+        </select>
+        <button type="button">Terbitkan</button>
+        </div>
+
+        </div>
+
+        <div class="list-container">
+
+            <ul class="list-jenis">
+
+
+                <p>UMUM-1</p>
+                <li>
+                    
+                    <div class="list-jenis-left">
+                    A-001
+                
+                    <button type="button">Normal</button>
+                    <button type="button">Dipanggil</button>
+                    </div>
+
+                    <div class="list-jenis-right">
+                        <p>Selesai</p>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+
+        </div>
+
     </div>
 
     </div>
     
+    <script scrc="code.js"></script>
 </body>
 </html>

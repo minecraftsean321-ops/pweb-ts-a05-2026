@@ -1,5 +1,6 @@
 body {
     background: #DDD8CA;
+    font: 'Inter' !important;
 }
 
 .navbar {
@@ -29,8 +30,96 @@ body {
 
 .container1 {
     border: 1px solid black;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
 }
 
 .container2 {
     border: 1px solid black;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+}
+
+.input-1 {
+    display: flex;
+    justify-content: first baseline;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.list-antrian {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style-type: none;
+    padding: 0px;
+
+
+}
+
+.list-antrian li {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: 1px solid black;
+    padding: 10px;
+
+}
+
+.list-antrian .list-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-antrian {
+    display: flex;
+    flex-direction: column; 
+    gap: 4px; 
+}
+
+.list-antrian .list-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-2 {
+    display: flex;
+    justify-content: first baseline;
+    align-items: center;
+    gap: 8px;
+    padding: 0px;
+}
+
+.list-jenis {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0px;
+}
+
+.list-jenis li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    gap: 64px;
+  
+}
+
+.parent-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.container1, .container2 {
+    flex: 1;
+    min-width: 0;
 }
