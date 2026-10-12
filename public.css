@@ -1,0 +1,427 @@
+/* Gaya mengikuti proyek TerraGoods (mystyle.css): pasir #DDD8CA, hijau zaitun #3B4427, font Inter.
+   Ganti warna cukup lewat variabel di bawah. */
+:root {
+  --pasir: #ddd8ca;
+  --hijau: #3b4427;
+  --hijau-tua: #1b2e1e;
+  --sage: #c8d6af;
+  --putih: #fff;
+  --garis: #e0dad0;
+  --garis2: #c9c5b8;
+  --abu: #6d6e5f;
+  --bahaya-bg: #f5dcd5;
+  --bahaya: #8a2d1b;
+  --serif: "Inter", sans-serif;
+  --sans: "Inter", sans-serif;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 16px/1.5 var(--sans);
+  color: var(--hijau);
+  background: var(--pasir);
+}
+h1,
+h2,
+.angka,
+.kode,
+.merek {
+  font-family: var(--serif);
+}
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--hijau);
+  color: #fff;
+}
+.merek {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+.merek small {
+  display: block;
+  font: 400 0.8rem var(--sans);
+  opacity: 0.8;
+}
+.bar nav {
+  display: flex;
+  gap: 32px;
+}
+.bar nav a {
+  color: #fff;
+  text-decoration: none;
+}
+.bar nav a:hover {
+  color: var(--sage);
+}
+.wadah {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+.error {
+  margin: 16px auto;
+  max-width: 880px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--bahaya-bg);
+  border: 1px solid var(--bahaya);
+  color: var(--bahaya);
+}
+.error[hidden],
+[hidden] {
+  display: none !important;
+}
+.langkah {
+  margin-bottom: 28px;
+}
+.langkah h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 1.3rem;
+}
+.langkah h2 span {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--hijau);
+  color: #fff;
+  font: 600 0.95rem var(--sans);
+}
+.daftar-layanan {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+}
+.kartu-layanan {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  color: var(--hijau);
+  background: var(--putih);
+  border: 1px solid var(--garis);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.kartu-layanan:hover {
+  border-color: var(--hijau);
+}
+.kartu-layanan[aria-pressed="true"] {
+  background: var(--sage);
+  border-color: var(--hijau);
+  box-shadow: inset 0 0 0 1px var(--hijau);
+}
+.kartu-layanan .kode {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.kartu-layanan .nama {
+  font-weight: 600;
+}
+.kartu-layanan .info {
+  font-size: 0.85rem;
+  color: var(--abu);
+}
+.kartu-layanan[aria-pressed="true"] .info {
+  color: var(--hijau);
+}
+.daftar-prioritas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  cursor: pointer;
+}
+.chip input {
+  position: absolute;
+  opacity: 0;
+}
+.chip span {
+  display: inline-block;
+  padding: 8px 18px;
+  border: 1px solid var(--garis2);
+  border-radius: 8px;
+  background: var(--putih);
+  font-weight: 500;
+}
+.chip input:checked + span {
+  background: var(--hijau);
+  border-color: var(--hijau);
+  color: #fff;
+}
+.chip input:focus-visible + span,
+.btn:focus-visible,
+.kartu-layanan:focus-visible {
+  outline: 3px solid var(--sage);
+  outline-offset: 2px;
+}
+p.kosong {
+  grid-column: 1/-1;
+  padding: 24px;
+  text-align: center;
+  color: var(--abu);
+  background: var(--putih);
+  border: 1px solid var(--garis);
+}
+.btn {
+  padding: 10px 24px;
+  border: 1px solid var(--hijau);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--hijau);
+  font: 500 1rem var(--sans);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.btn:hover:not(:disabled) {
+  background: var(--sage);
+}
+.btn.utama {
+  background: var(--hijau);
+  color: #fff;
+}
+.btn.utama:hover:not(:disabled) {
+  background: var(--hijau-tua);
+}
+.btn.besar {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.tiket {
+  margin-top: 36px;
+  padding: 28px 24px;
+  text-align: center;
+  background: var(--putih);
+  border: 1px solid var(--garis);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  animation: muncul 0.4s ease;
+}
+.tiket .label,
+.kartu-layar .label {
+  margin: 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--abu);
+}
+.tiket .angka {
+  font-size: clamp(3.5rem, 14vw, 6rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.tiket .layanan {
+  margin: 0 0 16px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.tiket dl {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 0 0 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--garis2);
+}
+.tiket dt {
+  font-size: 0.8rem;
+  color: var(--abu);
+}
+.tiket dd {
+  margin: 0;
+  font-weight: 600;
+}
+.status[data-status="Dipanggil"] {
+  display: inline-block;
+  padding: 0 10px;
+  border-radius: 6px;
+  background: var(--sage);
+}
+.status[data-status="Selesai"],
+.status[data-status="Dilewati"] {
+  color: var(--abu);
+}
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+@media print {
+  body {
+    background: #fff;
+  }
+  body > *:not(main),
+  main > *:not(#tiket-saya) {
+    display: none !important;
+  }
+  .tiket {
+    margin: 0;
+    box-shadow: none;
+  }
+  .aksi {
+    display: none;
+  }
+}
+
+/* ---------- layar.html ---------- */
+.layar .bar {
+  padding: 14px 32px;
+}
+.waktu {
+  text-align: center;
+}
+#jam {
+  font: 700 2rem var(--serif);
+  line-height: 1;
+}
+#tanggal {
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.bar .btn {
+  border-color: #fff;
+  color: #fff;
+}
+.bar .btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.terbaru {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  align-items: baseline;
+  justify-content: center;
+  margin: 20px 32px 0;
+  padding: 14px 24px;
+  border-radius: 12px;
+  background: var(--hijau-tua);
+  color: #fff;
+}
+.terbaru span {
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+.terbaru strong {
+  font: 700 clamp(1.4rem, 3vw, 2.2rem) var(--serif);
+}
+.grid-layar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 20px 32px 40px;
+}
+.kartu-layar {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--putih);
+  border: 1px solid var(--garis);
+}
+.kartu-layar header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: var(--hijau);
+  color: #fff;
+}
+.kartu-layar header .kode {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--sage);
+  color: var(--hijau);
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.kartu-layar h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+.kartu-layar .tengah {
+  flex: 1;
+  padding: 22px 16px;
+  text-align: center;
+}
+.kartu-layar .angka {
+  font-size: clamp(3.5rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+}
+.kartu-layar .angka.kosong {
+  color: var(--garis2);
+}
+.lencana {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 14px;
+  border-radius: 12px;
+  background: var(--hijau);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.kartu-layar footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--garis);
+  color: var(--abu);
+  font-weight: 600;
+}
+.kartu-layar.baru {
+  border-color: var(--hijau);
+  box-shadow: inset 0 0 0 2px var(--hijau);
+  animation: denyut 1s ease 3;
+}
+.kartu-layar.baru .tengah {
+  background: var(--sage);
+}
+@keyframes denyut {
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 0 0 8px rgba(59, 68, 39, 0.25);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layar Antrian · Rumah Sakit</title>
+    <link rel="stylesheet" href="public.css" />
+  </head>
+  <body class="layar">
+    <header class="bar">
+      <div class="merek">Antrian Rumah Sakit<small>Layar panggilan</small></div>
+      <div class="waktu">
+        <div id="jam">--:--:--</div>
+        <div id="tanggal"></div>
+      </div>
+      <div class="aksi">
+        <button id="btn-suara" class="btn" type="button" aria-pressed="false">
+          Suara: Mati
+        </button>
+        <button id="btn-full" class="btn" type="button">Layar Penuh</button>
+      </div>
+    </header>
+    <p id="error-banner" class="error" role="alert" hidden></p>
+    <section class="terbaru">
+      <span>Panggilan terbaru</span><strong id="panggilan-terbaru">-</strong>
+    </section>
+    <main id="grid-layar" class="grid-layar" aria-live="polite"></main>
+    <script type="module" src="layar.js" defer></script>
+  </body>
+</html>

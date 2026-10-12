@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ambil Antrian · Rumah Sakit</title>
+    <link rel="stylesheet" href="public.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <div class="merek">
+        Antrian Rumah Sakit<small>Ambil nomor dari ponsel Anda</small>
+      </div>
+      <nav>
+        <a href="layar.html">Layar Antrian</a
+        ><a href="login.html">Login Petugas</a>
+      </nav>
+    </header>
+    <main class="wadah">
+      <p id="error-banner" class="error" role="alert" hidden></p>
+      <section class="langkah">
+        <h2><span>1</span>Pilih layanan</h2>
+        <div id="daftar-layanan" class="daftar-layanan"></div>
+      </section>
+      <section class="langkah">
+        <h2><span>2</span>Tingkat prioritas</h2>
+        <div
+          id="daftar-prioritas"
+          class="daftar-prioritas"
+          role="radiogroup"
+          aria-label="Tingkat prioritas"
+        ></div>
+      </section>
+      <button id="btn-ambil" class="btn utama besar" type="button" disabled>
+        Ambil Nomor Antrian
+      </button>
+
+      <section id="tiket-saya" class="tiket" aria-live="polite" hidden>
+        <p class="label">Nomor antrian Anda</p>
+        <div id="t-nomor" class="angka"></div>
+        <p id="t-layanan" class="layanan"></p>
+        <dl>
+          <div>
+            <dt>Prioritas</dt>
+            <dd id="t-prioritas"></dd>
+          </div>
+          <div>
+            <dt>Status</dt>
+            <dd id="t-status" class="status"></dd>
+          </div>
+          <div>
+            <dt>Diambil pukul</dt>
+            <dd id="t-jam"></dd>
+          </div>
+          <div>
+            <dt>Di depan Anda</dt>
+            <dd id="t-depan"></dd>
+          </div>
+        </dl>
+        <div class="aksi">
+          <button id="btn-cetak" class="btn utama" type="button">
+            Cetak Tiket
+          </button>
+          <button id="btn-lagi" class="btn" type="button">
+            Ambil Tiket Lain
+          </button>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="ambil-antrian.js" defer></script>
+  </body>
+</html>
