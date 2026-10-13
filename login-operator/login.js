@@ -68,7 +68,7 @@ loginForm?.addEventListener('submit', async (e) => {
             window.location.href = '../dashboard-admin/index.html';
         }
         else {
-            window.location.href = '../antrian-layar-page/ambilantrian.html';
+            window.location.href = '../antrian-layar-page/ambil-antrian.html';
         }
     }
     catch (error) {
