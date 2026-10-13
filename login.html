@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Petugas · Antrian Rumah Sakit</title>
+    <link rel="stylesheet" href="login-operator.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="bar">
+        <div class="merek">
+            Rumah Sakit
+            <small>Sistem Manajemen Antrian</small>
+        </div>
+        <nav>
+            <a href="antrian-layar-page/ambilantrian.html">Ambil Antrian</a>
+            <a href="antrian-layar-page/layar.html">Layar Informasi</a>
+        </nav>
+    </header>
+
+    <main class="wadah">
+        <div class="login-card">
+            <h2 style="margin-top: 0; font-size: 1.6rem; color: var(--hijau);">Login Petugas</h2>
+            <p style="color: var(--abu); margin-bottom: 24px; font-size: 0.95rem;">Masukkan kredensial akun Anda untuk mengakses panel operator.</p>
+
+            <div id="error-banner" class="error" hidden></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" id="btnLogin" class="btn utama besar">
+                    <span id="btnText">Masuk</span>
+                </button>
+            </form>
+
+            <div class="nav-back">
+                <a href="antrian-layar-page/ambilantrian.html">← Kembali ke Halaman Ambil Antrian</a>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="login.js" defer></script>
+</body>
+</html>

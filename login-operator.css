@@ -1,0 +1,259 @@
+/* ---------- 1. Variabel & Reset Dasar TerraGoods ---------- */
+:root {
+  --pasir: #ddd8ca;
+  --hijau: #3b4427;
+  --hijau-tua: #1b2e1e;
+  --sage: #c8d6af;
+  --putih: #fff;
+  --garis: #e0dad0;
+  --garis2: #c9c5b8;
+  --abu: #6d6e5f;
+  --bahaya-bg: #f5dcd5;
+  --bahaya: #8a2d1b;
+  --serif: "Inter", sans-serif;
+  --sans: "Inter", sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 16px/1.5 var(--sans);
+  color: var(--hijau);
+  background: var(--pasir);
+}
+
+h1, h2, h3, .angka, .merek {
+  font-family: var(--serif);
+}
+
+/* ---------- 2. Header / Bar Style ---------- */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 32px;
+  background: var(--hijau);
+  color: #fff;
+}
+
+.merek {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.merek small {
+  display: block;
+  font: 400 0.8rem var(--sans);
+  opacity: 0.8;
+}
+
+.bar nav {
+  display: flex;
+  gap: 24px;
+}
+
+.bar nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.bar nav a:hover {
+  color: var(--sage);
+}
+
+/* ---------- 3. Wadah & Tombol Umum ---------- */
+.wadah {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: 1px solid var(--hijau);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--hijau);
+  font: 500 1rem var(--sans);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--sage);
+}
+
+.btn.utama {
+  background: var(--hijau);
+  color: #fff;
+}
+
+.btn.utama:hover:not(:disabled) {
+  background: var(--hijau-tua);
+}
+
+.btn.besar {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+}
+
+.error {
+  margin: 16px auto;
+  max-width: 880px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--bahaya-bg);
+  border: 1px solid var(--bahaya);
+  color: var(--bahaya);
+}
+
+.error[hidden], [hidden] {
+  display: none !important;
+}
+
+/* ---------- 4. Login Card & Operator Specific Styles ---------- */
+.login-card {
+    background: var(--putih);
+    border: 1px solid var(--garis);
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 440px;
+    margin: 40px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 14px;
+    box-sizing: border-box;
+    border: 1px solid var(--garis2);
+    border-radius: 8px;
+    font: inherit;
+    background: var(--putih);
+    color: var(--hijau);
+}
+
+.form-group input:focus {
+    outline: 3px solid var(--sage);
+    border-color: var(--hijau);
+}
+
+.nav-back {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.nav-back a {
+    color: var(--hijau);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-back a:hover {
+    color: var(--hijau-tua);
+    text-decoration: underline;
+}
+
+/* Panel Operator Grid & List */
+.operator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .operator-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panel-panggilan {
+    background: var(--putih);
+    border: 1px solid var(--garis);
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+}
+
+.daftar-menunggu-box {
+    background: var(--putih);
+    border: 1px solid var(--garis);
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.daftar-menunggu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 380px;
+    overflow-y: auto;
+    border: 1px solid var(--garis2);
+    border-radius: 8px;
+}
+
+.daftar-menunggu-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--garis);
+    background: var(--putih);
+}
+
+.daftar-menunggu-list li:last-child {
+    border-bottom: none;
+}
+
+.badge-prioritas {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: var(--sage);
+    color: var(--hijau);
+}
+
+.btn-lewati-aksi {
+    background: var(--bahaya-bg);
+    color: var(--bahaya);
+    border-color: var(--bahaya);
+}
+
+.btn-lewati-aksi:hover:not(:disabled) {
+    background: #edd0c5;
+}
+
+.btn-selesai-aksi {
+    background: var(--sage);
+    color: var(--hijau-tua);
+    border-color: var(--hijau);
+}
+
+.btn-selesai-aksi:hover:not(:disabled) {
+    background: #b5c798;
+}
+
+.angka {
+    font-size: clamp(3.5rem, 10vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+}
