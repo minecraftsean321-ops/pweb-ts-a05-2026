@@ -1,14 +1,32 @@
+:root {
+    --serif: "Inter", sans-serif;
+    --sans: "Inter", sans-serif;
+}
+
 body {
     background: #DDD8CA;
-    font: 'Inter' !important;
+    font: 16px/1.5 var(--sans);
+    margin: 0px;
+    padding: 0px;
+}
+
+button,
+input,
+select {
+    font: inherit;
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-sizing: border-box;
     border-bottom: 1px solid black;
+    background-color: #3B4427;
+    color: white;
     width: 100%;
+    height: 100px;
+    padding: 8px;
 }
 
 .navbar-right {
@@ -22,6 +40,16 @@ body {
     margin: 0px;
 }
 
+.navbar-left p {
+    color: #BDBDBD;
+}
+
+.navbar-left h1 {
+    margin-bottom: 0px;
+    font-size: 32px;
+    color: white;
+}
+
 .container-utama {
     display: flex;
     justify-content: space-between;
@@ -32,13 +60,30 @@ body {
     border: 1px solid black;
     border-radius: 8px;
     padding: 16px;
+    overflow: hidden;
     margin: 16px;
+}
+
+.container1 .kotak-header,
+.container2 .kotak-header {
+    background-color: #1b2e1e;
+    color: #C8D6AF;
+    padding: 20px;
+    width: calc(100% + 32px);
+    margin: -16px -16px 16px;
+    box-sizing: border-box;
+}
+
+.container1 .kotak-header h3,
+.container2 .kotak-header h3 {
+    margin: 0px;
 }
 
 .container2 {
     border: 1px solid black;
     border-radius: 8px;
     padding: 16px;
+    overflow: hidden;
     margin: 16px;
 }
 
@@ -79,6 +124,10 @@ body {
     padding: 0px;
 
 
+}
+
+.list-container .queue-list-heading h3 {
+    margin-bottom: 0px;
 }
 
 .list-antrian li {
@@ -171,11 +220,12 @@ body {
 
 .navbar-user .reset-antrian {
     color: white;
-    background: #a32626;
     border: 0;
     border-radius: 4px;
+    background-color: brown;
     padding: 8px 12px;
     cursor: pointer;
+    font-size: 13px;
 }
 
 .selectJenisTerbit {

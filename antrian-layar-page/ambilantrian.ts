@@ -3,8 +3,8 @@ import {
   getSemuaJenisAntrian,
   getSemuaTiket,
   simpanTiket,
-} from "./utils.js";
-import type { JenisAntrian, Prioritas, Tiket } from "./utils.js";
+} from "../utils.js";
+import type { JenisAntrian, Prioritas, Tiket } from "../utils.js";
 import {
   ambilEl,
   bacaAman,
@@ -12,7 +12,7 @@ import {
   el,
   formatJam,
   tampilkanError,
-} from "./public-shared.js";
+} from "../public-shared.js";
 
 const KEY_TIKET_SAYA = "tiket_saya"; // tiket milik pengunjung ini (per tab/sesi)
 const DAFTAR_PRIORITAS: Prioritas[] = [
