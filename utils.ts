@@ -67,16 +67,24 @@ export const getAuthSession = (): AuthSession | null => {
 
 export const logout = (): void => {
     localStorage.removeItem(KEY_AUTH);
-    window.location.reload();
+    window.location.replace(new URL('./login-operator/login.html', import.meta.url).href);
 };
 
-// Fungsi Auth Guard untuk proteksi dashboard admin & moderator
-export const checkAuth = (): void => {
+export const requireAuth = (): AuthSession | null => {
     const session = getAuthSession();
+    if (!session?.token || !['admin', 'user'].includes(session.role)) {
+        window.location.replace(new URL('./login-operator/login.html', import.meta.url).href);
+        return null;
+    }
+    return session;
+};
 
-    // Hanya admin dan moderator yang boleh membuka dashboard
-    if (!session?.token || !['admin', 'moderator'].includes(session.role)) {
-        window.location.href = '../login-operator/login.html';
+// Hanya admin yang boleh membuka dashboard.
+export const checkAuth = (): void => {
+    const session = requireAuth();
+    if (session && session.role !== 'admin') {
+        const loginUrl = new URL('./login-operator/login.html?denied=admin', import.meta.url);
+        window.location.replace(loginUrl.href);
     }
 };
 

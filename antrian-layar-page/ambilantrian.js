@@ -1,5 +1,41 @@
-import { formatNomorTiket, getSemuaJenisAntrian, getSemuaTiket, simpanTiket, } from "../utils.js";
+import { formatNomorTiket, getSemuaJenisAntrian, getSemuaTiket, logout, requireAuth, simpanTiket, } from "../utils.js";
 import { ambilEl, bacaAman, bandingkanTiket, el, formatJam, tampilkanError, } from "../public-shared.js";
+const authSession = requireAuth();
+const userNameDisplay = document.getElementById("userNameDisplay");
+const userRoleDisplay = document.getElementById("userRoleDisplay");
+const profileButton = document.getElementById("profileButton");
+const userPanel = document.getElementById("user-panel");
+if (userNameDisplay && authSession) {
+    userNameDisplay.textContent = authSession.firstName;
+}
+if (userRoleDisplay && authSession) {
+    userRoleDisplay.textContent = authSession.role.charAt(0).toUpperCase() + authSession.role.slice(1);
+}
+const closeUserPanel = () => {
+    if (!userPanel || !profileButton)
+        return;
+    userPanel.hidden = true;
+    profileButton.setAttribute("aria-expanded", "false");
+};
+profileButton?.addEventListener("click", () => {
+    if (!userPanel)
+        return;
+    const isOpening = userPanel.hidden;
+    userPanel.hidden = !isOpening;
+    profileButton.setAttribute("aria-expanded", String(isOpening));
+});
+document.getElementById("btnLogout")?.addEventListener("click", logout);
+document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Node))
+        return;
+    if (userPanel?.contains(event.target) || profileButton?.contains(event.target))
+        return;
+    closeUserPanel();
+});
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape")
+        closeUserPanel();
+});
 const KEY_TIKET_SAYA = "tiket_saya"; // tiket milik pengunjung ini (per tab/sesi)
 const DAFTAR_PRIORITAS = [
     "Normal",

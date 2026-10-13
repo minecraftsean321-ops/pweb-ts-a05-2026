@@ -5,16 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ambil Antrian · Rumah Sakit</title>
     <link rel="stylesheet" href="public.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
   </head>
   <body>
     <header class="bar">
       <div class="merek">
         Antrian Rumah Sakit<small>Ambil nomor dari ponsel Anda</small>
       </div>
-      <nav>
-        <a href="layar.html">Layar Antrian</a
-        ><a href="../login-operator/login.html">Login Petugas</a>
-      </nav>
+      <div class="header-actions">
+        <nav>
+          <a href="layar.html">Layar Antrian</a>
+          <a href="../login-operator/login.html">Login Petugas</a>
+        </nav>
+        <div class="navbar-user">
+          <button
+            type="button"
+            id="profileButton"
+            class="profile-button"
+            aria-label="Buka panel profil"
+            aria-controls="user-panel"
+            aria-expanded="false"
+          >
+            <i class="ri-user-line" aria-hidden="true"></i>
+          </button>
+          <div class="user-panel" id="user-panel" hidden>
+            <div class="user-panel-heading">
+              <i class="ri-user-smile-line" aria-hidden="true"></i>
+              <div>
+                <span class="user-greeting">Selamat datang</span>
+                <strong id="userNameDisplay"></strong>
+              </div>
+            </div>
+            <div class="user-role">
+              <i class="ri-shield-user-line" aria-hidden="true"></i>
+              <span>Role</span>
+              <strong id="userRoleDisplay"></strong>
+            </div>
+            <button id="btnLogout" class="logout-button" type="button">
+              <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </header>
     <main class="wadah">
       <p id="error-banner" class="error" role="alert" hidden></p>

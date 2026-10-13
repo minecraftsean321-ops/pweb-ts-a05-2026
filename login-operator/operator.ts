@@ -1,11 +1,7 @@
-import { getAuthSession, logout, getSemuaTiket, simpanTiket, getSemuaJenisAntrian } from '../utils.js';
+import { logout, getSemuaTiket, simpanTiket, getSemuaJenisAntrian, requireAuth } from '../utils.js';
 
 // 1. Auth Guard: Memastikan pengguna telah terotentikasi & memiliki data session
-const authSession = getAuthSession();
-if (!authSession || !authSession.token) {
-    // Jika belum login, redirect paksa kembali ke login.html
-    window.location.href = 'login.html';
-}
+const authSession = requireAuth();
 
 // Tampilkan informasi profil di navbar
 const userNameDisplay = document.getElementById('userNameDisplay');
@@ -16,7 +12,9 @@ const btnLogout = document.getElementById('btnLogout');
 
 if (authSession) {
     if (userNameDisplay) userNameDisplay.textContent = authSession.firstName;
-    if (userRoleDisplay) userRoleDisplay.textContent = authSession.role;
+    if (userRoleDisplay) {
+        userRoleDisplay.textContent = authSession.role.charAt(0).toUpperCase() + authSession.role.slice(1);
+    }
 }
 
 // Interaksi Panel Profil

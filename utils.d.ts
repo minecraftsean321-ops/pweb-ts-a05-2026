@@ -20,6 +20,7 @@ export interface Tiket {
 export declare const setAuthSession: (data: AuthSession) => void;
 export declare const getAuthSession: () => AuthSession | null;
 export declare const logout: () => void;
+export declare const requireAuth: () => AuthSession | null;
 export declare const checkAuth: () => void;
 export declare const getSemuaJenisAntrian: () => JenisAntrian[];
 export declare const simpanJenisAntrian: (data: JenisAntrian[]) => void;

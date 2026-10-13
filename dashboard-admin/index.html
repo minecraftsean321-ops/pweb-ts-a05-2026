@@ -32,9 +32,22 @@
         </button>
 
         <div class="user-panel-hidden" id="user-panel" hidden>
-        <span id="userNameDisplay"></span>
-        <span id="userRoleDisplay"></span>
-        <button type="button" id="btnLogout">Logout</button>
+            <div class="user-panel-heading">
+                <i class="ri-user-smile-line" aria-hidden="true"></i>
+                <div>
+                    <span class="user-greeting">Selamat datang</span>
+                    <strong id="userNameDisplay"></strong>
+                </div>
+            </div>
+            <div class="user-role">
+                <i class="ri-shield-user-line" aria-hidden="true"></i>
+                <span>Role</span>
+                <strong id="userRoleDisplay"></strong>
+            </div>
+            <button type="button" id="btnLogout" class="logout-button">
+                <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+                <span>Logout</span>
+            </button>
         </div>
 
     </div>

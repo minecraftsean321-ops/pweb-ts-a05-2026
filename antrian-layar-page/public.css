@@ -52,7 +52,22 @@ h2,
 }
 .bar nav {
   display: flex;
+  align-items: center;
   gap: 32px;
+}
+.header-actions,
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.header-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.navbar-user {
+  position: relative;
+  font-size: 25px;
 }
 .bar nav a {
   color: #fff;
@@ -60,6 +75,100 @@ h2,
 }
 .bar nav a:hover {
   color: var(--sage);
+}
+.profile-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.user-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 10;
+  display: grid;
+  width: min(280px, calc(100vw - 32px));
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--garis);
+  border-radius: 12px;
+  background: var(--putih);
+  color: var(--hijau);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+.user-panel[hidden] {
+  display: none !important;
+}
+.user-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--garis);
+}
+.user-panel-heading > i {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--sage);
+  font-size: 1.4rem;
+}
+.user-panel-heading div {
+  display: grid;
+  min-width: 0;
+}
+.user-panel-heading strong {
+  overflow-wrap: anywhere;
+}
+.user-greeting {
+  color: var(--abu);
+  font-size: 0.8rem;
+}
+.user-role {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.user-role > i {
+  font-size: 1.1rem;
+}
+.user-role strong {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--sage);
+  font-size: 0.8rem;
+}
+.logout-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--bahaya);
+  border-radius: 8px;
+  background: var(--bahaya-bg);
+  color: var(--bahaya);
+  font: 600 0.95rem var(--sans);
+  cursor: pointer;
+}
+.logout-button:hover {
+  background: #edd0c5;
+}
+.logout-button:focus-visible,
+.profile-button:focus-visible {
+  outline: 3px solid var(--sage);
+  outline-offset: 2px;
 }
 .wadah {
   max-width: 880px;

@@ -55,7 +55,19 @@ h1, h2, h3, .angka, .merek {
 
 .bar nav {
   display: flex;
+  align-items: center;
   gap: 24px;
+}
+
+.operator-user {
+  display: flex;
+  flex-direction: column;
+  color: var(--sage);
+  font-weight: 500;
+}
+
+.operator-user small {
+  font-size: 0.8rem;
 }
 
 .bar nav a {

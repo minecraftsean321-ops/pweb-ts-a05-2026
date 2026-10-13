@@ -1,5 +1,6 @@
-import { getSemuaJenisAntrian, getSemuaTiket } from "../utils.js";
+import { getSemuaJenisAntrian, getSemuaTiket, requireAuth } from "../utils.js";
 import { ambilEl, bacaAman, bandingkanTiket, el, tampilkanError, } from "../public-shared.js";
+requireAuth();
 const WAKTU_SOROT_MS = 6000;
 const dipanggilSebelumnya = new Map(); // kode -> id tiket yang sedang dipanggil
 const waktuPanggil = new Map(); // kode -> kapan terakhir berganti

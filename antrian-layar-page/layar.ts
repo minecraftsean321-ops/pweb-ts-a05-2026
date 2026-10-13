@@ -1,4 +1,4 @@
-import { getSemuaJenisAntrian, getSemuaTiket } from "../utils.js";
+import { getSemuaJenisAntrian, getSemuaTiket, requireAuth } from "../utils.js";
 import type { JenisAntrian, Tiket } from "../utils.js";
 import {
   ambilEl,
@@ -7,6 +7,8 @@ import {
   el,
   tampilkanError,
 } from "../public-shared.js";
+
+requireAuth();
 
 const WAKTU_SOROT_MS = 6000;
 const dipanggilSebelumnya = new Map<string, string>(); // kode -> id tiket yang sedang dipanggil

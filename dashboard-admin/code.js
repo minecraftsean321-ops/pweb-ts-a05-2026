@@ -1,4 +1,5 @@
-import { getAuthSession, logout, getSemuaJenisAntrian, simpanJenisAntrian, getSemuaTiket, simpanTiket, formatNomorTiket } from '../utils.js';
+import { checkAuth, getAuthSession, logout, getSemuaJenisAntrian, simpanJenisAntrian, getSemuaTiket, simpanTiket, formatNomorTiket } from '../utils.js';
+checkAuth();
 const authSession = getAuthSession();
 const userNameDisplay = document.getElementById('userNameDisplay');
 const userRoleDisplay = document.getElementById('userRoleDisplay');
@@ -18,8 +19,9 @@ const daftarPrioritas = ['Normal', 'Lansia', 'Disabilitas', 'VIP'];
 if (authSession) {
     if (userNameDisplay)
         userNameDisplay.textContent = authSession.firstName;
-    if (userRoleDisplay)
-        userRoleDisplay.textContent = authSession.role;
+    if (userRoleDisplay) {
+        userRoleDisplay.textContent = authSession.role.charAt(0).toUpperCase() + authSession.role.slice(1);
+    }
 }
 else {
     if (userNameDisplay)
