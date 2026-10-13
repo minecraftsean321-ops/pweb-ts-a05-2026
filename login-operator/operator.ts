@@ -1,4 +1,4 @@
-import { getAuthSession, logout, getSemuaTiket, simpanTiket, getSemuaJenisAntrian } from './utils.js';
+import { getAuthSession, logout, getSemuaTiket, simpanTiket, getSemuaJenisAntrian } from '../utils.js';
 
 // 1. Auth Guard: Memastikan pengguna telah terotentikasi & memiliki data session
 const authSession = getAuthSession();

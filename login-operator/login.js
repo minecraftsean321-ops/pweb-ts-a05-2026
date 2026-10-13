@@ -1,4 +1,4 @@
-import { setAuthSession } from './utils.js';
+import { setAuthSession } from '../utils.js';
 const loginForm = document.getElementById('loginForm');
 const usernameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
@@ -25,7 +25,9 @@ loginForm?.addEventListener('submit', async (e) => {
         if (!response.ok) {
             throw new Error(data.message || 'Gagal melakukan autentikasi. Periksa kembali username dan password Anda.');
         }
-        let userRole = data.role || 'user';
+        // DummyJSON tidak selalu mengirim properti 'role', jadi kita berikan fallback
+        // Akun 'emilys' diatur sebagai admin/moderator, sisanya user biasa
+        let userRole = data.role || (username === 'emilys' ? 'admin' : 'user');
         if (userRole === 'moderator') {
             userRole = 'admin';
         }
@@ -34,11 +36,12 @@ loginForm?.addEventListener('submit', async (e) => {
             role: userRole,
             firstName: data.firstName || username
         });
+        // Auto Redirect Berdasarkan Role sesuai instruksi tugas
         if (['admin', 'moderator'].includes(userRole)) {
-            window.location.href = 'index.html';
+            window.location.href = '../dashboard-admin/index.html';
         }
         else {
-            window.location.href = 'antrian-layar-page/ambilantrian.html';
+            window.location.href = 'operator.html';
         }
     }
     catch (error) {

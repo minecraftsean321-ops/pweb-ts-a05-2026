@@ -45,7 +45,7 @@ export const checkAuth = () => {
     const session = getAuthSession();
     // Hanya admin dan moderator yang boleh membuka dashboard
     if (!session?.token || !['admin', 'moderator'].includes(session.role)) {
-        window.location.href = 'login.html';
+        window.location.href = '../login-operator/login.html';
     }
 };
 // ==========================================

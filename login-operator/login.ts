@@ -1,4 +1,4 @@
-import { setAuthSession } from './utils.js';
+import { setAuthSession } from '../utils.js';
 
 const loginForm = document.getElementById('loginForm') as HTMLFormElement | null;
 const usernameInput = document.getElementById('username') as HTMLInputElement | null;
@@ -49,9 +49,9 @@ loginForm?.addEventListener('submit', async (e: SubmitEvent) => {
 
         // Auto Redirect Berdasarkan Role sesuai instruksi tugas
         if (['admin', 'moderator'].includes(userRole)) {
-            window.location.href = 'index.html'; // Dashboard Admin
+            window.location.href = '../dashboard-admin/index.html';
         } else {
-            window.location.href = 'operator.html'; // Panel Operator / User biasa
+            window.location.href = 'operator.html';
         }
 
     } catch (error: any) {
