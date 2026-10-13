@@ -6,7 +6,7 @@ const authSession = requireAuth();
 // Tampilkan informasi profil di navbar
 const userNameDisplay = document.getElementById('userNameDisplay');
 const userRoleDisplay = document.getElementById('userRoleDisplay');
-const profileButton = document.getElementById('profileButton');
+const profileButton = document.getElementById('profileButton') as HTMLButtonElement | null;
 const userPanel = document.getElementById('user-panel');
 const btnLogout = document.getElementById('btnLogout');
 
@@ -17,12 +17,29 @@ if (authSession) {
     }
 }
 
-// Interaksi Panel Profil
+const closeUserPanel = (): void => {
+    if (!userPanel || !profileButton) return;
+    userPanel.hidden = true;
+    profileButton.setAttribute('aria-expanded', 'false');
+};
+
 profileButton?.addEventListener('click', () => {
     if (!userPanel) return;
-    userPanel.hidden = !userPanel.hidden;
+    const isOpening = userPanel.hidden;
+    userPanel.hidden = !isOpening;
+    profileButton.setAttribute('aria-expanded', String(isOpening));
 });
 btnLogout?.addEventListener('click', logout);
+
+document.addEventListener('click', (event: MouseEvent) => {
+    if (!(event.target instanceof Node)) return;
+    if (userPanel?.contains(event.target) || profileButton?.contains(event.target)) return;
+    closeUserPanel();
+});
+
+document.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key === 'Escape') closeUserPanel();
+});
 
 // Elemen DOM Operator
 const lblNomorAktif = document.getElementById('lblNomorAktif');

@@ -228,6 +228,23 @@ select {
     font-size: 13px;
 }
 
+.navbar-user .operator-page-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid #c8d6af;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.navbar-user .operator-page-link:hover {
+    background-color: #1b2e1e;
+}
+
 .selectJenisTerbit {
     width: 100%;
 }

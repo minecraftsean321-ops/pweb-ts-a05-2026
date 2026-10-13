@@ -14,13 +14,31 @@ if (authSession) {
         userRoleDisplay.textContent = authSession.role.charAt(0).toUpperCase() + authSession.role.slice(1);
     }
 }
-// Interaksi Panel Profil
+const closeUserPanel = () => {
+    if (!userPanel || !profileButton)
+        return;
+    userPanel.hidden = true;
+    profileButton.setAttribute('aria-expanded', 'false');
+};
 profileButton?.addEventListener('click', () => {
     if (!userPanel)
         return;
-    userPanel.hidden = !userPanel.hidden;
+    const isOpening = userPanel.hidden;
+    userPanel.hidden = !isOpening;
+    profileButton.setAttribute('aria-expanded', String(isOpening));
 });
 btnLogout?.addEventListener('click', logout);
+document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Node))
+        return;
+    if (userPanel?.contains(event.target) || profileButton?.contains(event.target))
+        return;
+    closeUserPanel();
+});
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape')
+        closeUserPanel();
+});
 // Elemen DOM Operator
 const lblNomorAktif = document.getElementById('lblNomorAktif');
 const lblLayananAktif = document.getElementById('lblLayananAktif');
